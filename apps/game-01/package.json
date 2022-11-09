@@ -28,7 +28,7 @@
     "sass": "^1.56.1",
     "typescript": "^4.8.4",
     "vite": "^3.2.3",
-    "vite-plugin-glsl": "^0.5.3"
+    "vite-plugin-glsl": "^0.5.4"
   },
   "browserslist": [
     ">0.2%",

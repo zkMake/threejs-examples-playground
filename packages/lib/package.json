@@ -1,5 +1,5 @@
 {
-  "name": "@zkMake/lib",
+  "name": "@zkmake/lib",
   "version": "0.1.0",
   "main": "./src/index.tsx",
   "types": "./src/index.tsx",
@@ -11,14 +11,14 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/node": "^18.8.2",
-    "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6",
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.8",
     "eslint": "^7.32.0",
-    "eslint-config-custom": "workspace:*",
-    "sass": "^1.54.0",
-    "tsconfig": "workspace:*",
-    "tslib": "^2.4.0",
-    "typescript": "^4.6.4"
+    "eslint-config-custom": "workspace:0.0.0",
+    "sass": "^1.56.1",
+    "tsconfig": "workspace:0.0.0",
+    "tslib": "^2.4.1",
+    "typescript": "^4.8.4"
   }
 }
