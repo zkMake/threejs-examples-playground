@@ -6,7 +6,7 @@ import * as THREE from "three";
 THREE.ColorManagement.legacyMode = false;
 
 const BLOCK_SCALE = 0.99;
-const COLUMN_HEIGHT = 10;
+const COLUMN_HEIGHT = 2;
 const COLUMN_OFFSET = 0.05;
 
 const boxGeometry = new THREE.BoxGeometry();

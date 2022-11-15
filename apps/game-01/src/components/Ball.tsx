@@ -28,7 +28,7 @@ export const Ball = () => {
       const origin = ref.current.translation();
 
       if (origin.y < 0.4 && origin.y > 0) {
-        ref.current.applyImpulse({ x: 0, y: 0.3, z: 0 });
+        ref.current.applyImpulse({ x: 0, y: 0.35, z: 0 });
       }
     }
   };
@@ -93,13 +93,13 @@ export const Ball = () => {
       colliders="ball"
       linearDamping={0.75}
       angularDamping={0.75}
-      restitution={0.75}
+      restitution={0.5}
       friction={1}
       mass={0.1}
       position={[1, 0.75, 1]}
     >
       <mesh castShadow={true}>
-        <icosahedronGeometry args={[0.22, 2]} />
+        <icosahedronGeometry args={[0.22, 1]} />
         <meshStandardMaterial
           flatShading={true}
           transparent={true}
