@@ -1,10 +1,14 @@
 // @ts-nocheck
-import { TweenMax } from "gsap";
+
 import * as THREE from "three";
 
-import { Colors } from "./Colors.ts";
-import AirPlane from "./Airplane.ts";
-import Sea from "./Sea.ts";
+import COLORS from "./Colors";
+import AirPlane from "./AirPlane";
+import Sea from "./Sea";
+import Sky from "./Sky";
+import { Enemy, EnemiesHolder } from "./Enemies";
+import { CoinsHolder } from "./Coins";
+import { Particle, ParticlesHolder } from "./Particles";
 
 // Game variables
 let game;
@@ -18,6 +22,12 @@ let coinsHolder = null;
 let enemiesHolder = null;
 let particlesHolder = null;
 let sky = null;
+
+// class Game {
+//   constructor() {}
+//   init() {}
+//   resetGame () {}
+// }
 
 function resetGame() {
   game = {
@@ -115,7 +125,7 @@ function createScene() {
     nearPlane,
     farPlane
   );
-  scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
+  scene.fog = new THREE.Fog(COLORS.fog, 100, 950);
   camera.position.x = 0;
   camera.position.z = 200;
   camera.position.y = game.planeDefaultHeight;
@@ -196,303 +206,6 @@ function createLights() {
   scene.add(ambientLight);
 }
 
-const Sky = function () {
-  this.mesh = new THREE.Object3D();
-  this.nClouds = 20;
-  this.clouds = [];
-  const stepAngle = (Math.PI * 2) / this.nClouds;
-  for (let i = 0; i < this.nClouds; i++) {
-    const c = new Cloud();
-    this.clouds.push(c);
-    const a = stepAngle * i;
-    const h = game.seaRadius + 150 + Math.random() * 200;
-    c.mesh.position.y = Math.sin(a) * h;
-    c.mesh.position.x = Math.cos(a) * h;
-    c.mesh.position.z = -300 - Math.random() * 500;
-    c.mesh.rotation.z = a + Math.PI / 2;
-    const s = 1 + Math.random() * 2;
-    c.mesh.scale.set(s, s, s);
-    this.mesh.add(c.mesh);
-  }
-};
-
-Sky.prototype.moveClouds = function () {
-  for (let i = 0; i < this.nClouds; i++) {
-    let c = this.clouds[i];
-    c.rotate();
-  }
-  this.mesh.rotation.z += game.speed * deltaTime;
-};
-
-const Cloud = function () {
-  this.mesh = new THREE.Object3D();
-  this.mesh.name = "cloud";
-  let geom = new THREE.CubeGeometry(20, 20, 20);
-  let mat = new THREE.MeshPhongMaterial({
-    color: Colors.white,
-  });
-
-  //*
-  let nBlocs = 3 + Math.floor(Math.random() * 3);
-  for (let i = 0; i < nBlocs; i++) {
-    let m = new THREE.Mesh(geom.clone(), mat);
-    m.position.x = i * 15;
-    m.position.y = Math.random() * 10;
-    m.position.z = Math.random() * 10;
-    m.rotation.z = Math.random() * Math.PI * 2;
-    m.rotation.y = Math.random() * Math.PI * 2;
-    let s = 0.1 + Math.random() * 0.9;
-    m.scale.set(s, s, s);
-    this.mesh.add(m);
-    m.castShadow = true;
-    m.receiveShadow = true;
-  }
-  //*/
-};
-
-Cloud.prototype.rotate = function () {
-  let l = this.mesh.children.length;
-  for (let i = 0; i < l; i++) {
-    let m = this.mesh.children[i];
-    m.rotation.z += Math.random() * 0.005 * (i + 1);
-    m.rotation.y += Math.random() * 0.002 * (i + 1);
-  }
-};
-
-const Enemy = function () {
-  let geom = new THREE.TetrahedronGeometry(8, 2);
-  let mat = new THREE.MeshPhongMaterial({
-    color: Colors.red,
-    shininess: 0,
-    specular: 0xffffff,
-    shading: THREE.FlatShading,
-  });
-  this.mesh = new THREE.Mesh(geom, mat);
-  this.mesh.castShadow = true;
-  this.angle = 0;
-  this.dist = 0;
-};
-
-const EnemiesHolder = function () {
-  this.mesh = new THREE.Object3D();
-  this.enemiesInUse = [];
-};
-
-EnemiesHolder.prototype.spawnEnemies = function () {
-  let nEnemies = game.level;
-
-  for (let i = 0; i < nEnemies; i++) {
-    let enemy;
-    if (enemiesPool.length) {
-      enemy = enemiesPool.pop();
-    } else {
-      enemy = new Enemy();
-    }
-
-    enemy.angle = -(i * 0.1);
-    enemy.distance =
-      game.seaRadius +
-      game.planeDefaultHeight +
-      (-1 + Math.random() * 2) * (game.planeAmpHeight - 20);
-    enemy.mesh.position.y =
-      -game.seaRadius + Math.sin(enemy.angle) * enemy.distance;
-    enemy.mesh.position.x = Math.cos(enemy.angle) * enemy.distance;
-
-    this.mesh.add(enemy.mesh);
-    this.enemiesInUse.push(enemy);
-  }
-};
-
-EnemiesHolder.prototype.rotateEnemies = function () {
-  for (let i = 0; i < this.enemiesInUse.length; i++) {
-    let enemy = this.enemiesInUse[i];
-    enemy.angle += game.speed * deltaTime * game.enemiesSpeed;
-
-    if (enemy.angle > Math.PI * 2) enemy.angle -= Math.PI * 2;
-
-    enemy.mesh.position.y =
-      -game.seaRadius + Math.sin(enemy.angle) * enemy.distance;
-    enemy.mesh.position.x = Math.cos(enemy.angle) * enemy.distance;
-    enemy.mesh.rotation.z += Math.random() * 0.1;
-    enemy.mesh.rotation.y += Math.random() * 0.1;
-
-    //let globalEnemyPosition =  enemy.mesh.localToWorld(new THREE.Vector3());
-    let diffPos = airplane.mesh.position
-      .clone()
-      .sub(enemy.mesh.position.clone());
-    let d = diffPos.length();
-    if (d < game.enemyDistanceTolerance) {
-      particlesHolder.spawnParticles(
-        enemy.mesh.position.clone(),
-        15,
-        Colors.red,
-        3
-      );
-
-      enemiesPool.unshift(this.enemiesInUse.splice(i, 1)[0]);
-      this.mesh.remove(enemy.mesh);
-      game.planeCollisionSpeedX = (100 * diffPos.x) / d;
-      game.planeCollisionSpeedY = (100 * diffPos.y) / d;
-      ambientLight.intensity = 2;
-
-      removeEnergy();
-      i--;
-    } else if (enemy.angle > Math.PI) {
-      enemiesPool.unshift(this.enemiesInUse.splice(i, 1)[0]);
-      this.mesh.remove(enemy.mesh);
-      i--;
-    }
-  }
-};
-
-const Particle = function () {
-  let geom = new THREE.TetrahedronGeometry(3, 0);
-  let mat = new THREE.MeshPhongMaterial({
-    color: 0x009999,
-    shininess: 0,
-    specular: 0xffffff,
-    shading: THREE.FlatShading,
-  });
-  this.mesh = new THREE.Mesh(geom, mat);
-};
-
-Particle.prototype.explode = function (pos, color, scale) {
-  let _this = this;
-  let _p = this.mesh.parent;
-  this.mesh.material.color = new THREE.Color(color);
-  this.mesh.material.needsUpdate = true;
-  this.mesh.scale.set(scale, scale, scale);
-  let targetX = pos.x + (-1 + Math.random() * 2) * 50;
-  let targetY = pos.y + (-1 + Math.random() * 2) * 50;
-  let speed = 0.6 + Math.random() * 0.2;
-  TweenMax.to(this.mesh.rotation, speed, {
-    x: Math.random() * 12,
-    y: Math.random() * 12,
-  });
-  TweenMax.to(this.mesh.scale, speed, { x: 0.1, y: 0.1, z: 0.1 });
-  TweenMax.to(this.mesh.position, speed, {
-    x: targetX,
-    y: targetY,
-    delay: Math.random() * 0.1,
-    ease: TweenMax.Power2.easeOut,
-    onComplete: function () {
-      if (_p) _p.remove(_this.mesh);
-      _this.mesh.scale.set(1, 1, 1);
-      particlesPool.unshift(_this);
-    },
-  });
-};
-
-const ParticlesHolder = function () {
-  this.mesh = new THREE.Object3D();
-};
-
-ParticlesHolder.prototype.spawnParticles = function (
-  pos,
-  density,
-  color,
-  scale
-) {
-  for (let i = 0; i < density; i++) {
-    let particle;
-    if (particlesPool.length) {
-      particle = particlesPool.pop();
-    } else {
-      particle = new Particle();
-    }
-    this.mesh.add(particle.mesh);
-    particle.mesh.visible = true;
-    particle.mesh.position.y = pos.y;
-    particle.mesh.position.x = pos.x;
-    particle.explode(pos, color, scale);
-  }
-};
-
-const Coin = function () {
-  let geom = new THREE.TetrahedronGeometry(5, 0);
-  let mat = new THREE.MeshPhongMaterial({
-    color: 0x009999,
-    shininess: 0,
-    specular: 0xffffff,
-
-    shading: THREE.FlatShading,
-  });
-  this.mesh = new THREE.Mesh(geom, mat);
-  this.mesh.castShadow = true;
-  this.angle = 0;
-  this.dist = 0;
-};
-
-const CoinsHolder = function (nCoins) {
-  this.mesh = new THREE.Object3D();
-  this.coinsInUse = [];
-  this.coinsPool = [];
-  for (let i = 0; i < nCoins; i++) {
-    let coin = new Coin();
-    this.coinsPool.push(coin);
-  }
-};
-
-CoinsHolder.prototype.spawnCoins = function () {
-  let nCoins = 1 + Math.floor(Math.random() * 10);
-  let d =
-    game.seaRadius +
-    game.planeDefaultHeight +
-    (-1 + Math.random() * 2) * (game.planeAmpHeight - 20);
-  let amplitude = 10 + Math.round(Math.random() * 10);
-  for (let i = 0; i < nCoins; i++) {
-    let coin;
-    if (this.coinsPool.length) {
-      coin = this.coinsPool.pop();
-    } else {
-      coin = new Coin();
-    }
-    this.mesh.add(coin.mesh);
-    this.coinsInUse.push(coin);
-    coin.angle = -(i * 0.02);
-    coin.distance = d + Math.cos(i * 0.5) * amplitude;
-    coin.mesh.position.y =
-      -game.seaRadius + Math.sin(coin.angle) * coin.distance;
-    coin.mesh.position.x = Math.cos(coin.angle) * coin.distance;
-  }
-};
-
-CoinsHolder.prototype.rotateCoins = function () {
-  for (let i = 0; i < this.coinsInUse.length; i++) {
-    let coin = this.coinsInUse[i];
-    if (coin.exploding) continue;
-    coin.angle += game.speed * deltaTime * game.coinsSpeed;
-    if (coin.angle > Math.PI * 2) coin.angle -= Math.PI * 2;
-    coin.mesh.position.y =
-      -game.seaRadius + Math.sin(coin.angle) * coin.distance;
-    coin.mesh.position.x = Math.cos(coin.angle) * coin.distance;
-    coin.mesh.rotation.z += Math.random() * 0.1;
-    coin.mesh.rotation.y += Math.random() * 0.1;
-
-    //let globalCoinPosition =  coin.mesh.localToWorld(new THREE.Vector3());
-    let diffPos = airplane.mesh.position
-      .clone()
-      .sub(coin.mesh.position.clone());
-    let d = diffPos.length();
-    if (d < game.coinDistanceTolerance) {
-      this.coinsPool.unshift(this.coinsInUse.splice(i, 1)[0]);
-      this.mesh.remove(coin.mesh);
-      particlesHolder.spawnParticles(
-        coin.mesh.position.clone(),
-        5,
-        0x009999,
-        0.8
-      );
-      addEnergy();
-      i--;
-    } else if (coin.angle > Math.PI) {
-      this.coinsPool.unshift(this.coinsInUse.splice(i, 1)[0]);
-      this.mesh.remove(coin.mesh);
-      i--;
-    }
-  }
-};
-
 // 3D Models
 let sea;
 let airplane;
@@ -511,7 +224,7 @@ function createSea() {
 }
 
 function createSky() {
-  sky = new Sky();
+  sky = new Sky(game);
   sky.mesh.position.y = -game.seaRadius;
   scene.add(sky.mesh);
 }
@@ -551,7 +264,7 @@ function loop() {
       Math.floor(game.distance) > game.coinLastSpawn
     ) {
       game.coinLastSpawn = Math.floor(game.distance);
-      coinsHolder.spawnCoins();
+      coinsHolder.spawnCoins({ game });
     }
 
     if (
@@ -567,7 +280,7 @@ function loop() {
       Math.floor(game.distance) > game.enemyLastSpawn
     ) {
       game.enemyLastSpawn = Math.floor(game.distance);
-      enemiesHolder.spawnEnemies();
+      enemiesHolder.spawnEnemies({ game, enemiesPool });
     }
 
     if (
@@ -610,10 +323,27 @@ function loop() {
 
   ambientLight.intensity += (0.5 - ambientLight.intensity) * deltaTime * 0.005;
 
-  coinsHolder.rotateCoins();
-  enemiesHolder.rotateEnemies();
+  coinsHolder.rotateCoins({
+    game,
+    deltaTime,
+    airplane,
+    particlesHolder,
+    addEnergy,
+    particlesPool,
+  });
 
-  sky.moveClouds();
+  enemiesHolder.rotateEnemies({
+    game,
+    deltaTime,
+    airplane,
+    enemiesPool,
+    particlesHolder,
+    ambientLight,
+    removeEnergy,
+    particlesPool,
+  });
+
+  sky.moveClouds(game.speed, deltaTime);
   sea.moveWaves(deltaTime);
 
   renderer.render(scene, camera);
