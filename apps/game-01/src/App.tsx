@@ -26,7 +26,7 @@ const App = () => {
         orthographic={true}
         legacy={false}
         camera={{
-          zoom: 110,
+          zoom: 120,
           position: [1, 0.5, 1],
           near: -100,
           far: 100,
