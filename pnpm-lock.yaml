@@ -123,6 +123,49 @@ importers:
       vite: 3.2.3
       vite-plugin-glsl: 0.5.4_vite@3.2.3
 
+  apps/game-03-r3f:
+    specifiers:
+      '@react-three/cannon': ^6.5.0
+      '@react-three/drei': ^9.40.0
+      '@react-three/fiber': ^8.9.1
+      '@react-three/rapier': ^0.10.0
+      '@types/react': ^18.0.25
+      '@types/react-dom': ^18.0.8
+      '@types/three': ^0.146.0
+      '@vitejs/plugin-react': ^2.2.0
+      clsx: ^1.2.1
+      leva: ^0.9.34
+      r3f-perf: ^6.5.0
+      react: 18.2.0
+      react-dom: 18.2.0
+      sass: ^1.56.1
+      three: ^0.146.0
+      typescript: ^4.8.4
+      usehooks-ts: ^2.9.1
+      vite: ^3.2.3
+      vite-plugin-glsl: ^0.5.4
+    dependencies:
+      '@react-three/cannon': 6.5.0_v2ydulouxoshutbie5ymhabzf4
+      '@react-three/drei': 9.40.0_xwynmv5llzsuuouxruzymqw67e
+      '@react-three/fiber': 8.9.1_mjlgqb43i6mvslmnwgzrdumoh4
+      '@react-three/rapier': 0.10.0_aj5kj473hsgheg4miwvuwybosy
+      clsx: 1.2.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      three: 0.146.0
+      usehooks-ts: 2.9.1_biqbaboplfbrettd7655fr4n2y
+    devDependencies:
+      '@types/react': 18.0.25
+      '@types/react-dom': 18.0.8
+      '@types/three': 0.146.0
+      '@vitejs/plugin-react': 2.2.0_vite@3.2.3
+      leva: 0.9.34_biqbaboplfbrettd7655fr4n2y
+      r3f-perf: 6.5.0_jiwpjt7canjevu42m56uwkinga
+      sass: 1.56.1
+      typescript: 4.8.4
+      vite: 3.2.3_sass@1.56.1
+      vite-plugin-glsl: 0.5.4_vite@3.2.3
+
   apps/shader-playground:
     specifiers:
       '@vitejs/plugin-react': ^2.2.0
