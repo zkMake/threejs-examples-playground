@@ -37,12 +37,12 @@ importers:
       react-dom: 18.2.0
       sass: ^1.56.1
       three: ^0.146.0
-      typescript: ^4.8.4
+      typescript: ^4.9.3
       usehooks-ts: ^2.9.1
       vite: ^3.2.3
       vite-plugin-glsl: ^0.5.4
     dependencies:
-      '@react-three/cannon': 6.5.0_v2ydulouxoshutbie5ymhabzf4
+      '@react-three/cannon': 6.5.0_ircyqdtfvs5e2esrmucohjf5fm
       '@react-three/drei': 9.40.0_xwynmv5llzsuuouxruzymqw67e
       '@react-three/fiber': 8.9.1_mjlgqb43i6mvslmnwgzrdumoh4
       '@react-three/rapier': 0.10.0_aj5kj473hsgheg4miwvuwybosy
@@ -59,7 +59,7 @@ importers:
       leva: 0.9.34_biqbaboplfbrettd7655fr4n2y
       r3f-perf: 6.5.0_jiwpjt7canjevu42m56uwkinga
       sass: 1.56.1
-      typescript: 4.8.4
+      typescript: 4.9.3
       vite: 3.2.3_sass@1.56.1
       vite-plugin-glsl: 0.5.4_vite@3.2.3
 
@@ -80,12 +80,12 @@ importers:
       react-dom: 18.2.0
       sass: ^1.56.1
       three: ^0.146.0
-      typescript: ^4.8.4
+      typescript: ^4.9.3
       usehooks-ts: ^2.9.1
       vite: ^3.2.3
       vite-plugin-glsl: ^0.5.4
     dependencies:
-      '@react-three/cannon': 6.5.0_v2ydulouxoshutbie5ymhabzf4
+      '@react-three/cannon': 6.5.0_ircyqdtfvs5e2esrmucohjf5fm
       '@react-three/drei': 9.40.0_xwynmv5llzsuuouxruzymqw67e
       '@react-three/fiber': 8.9.1_mjlgqb43i6mvslmnwgzrdumoh4
       '@react-three/rapier': 0.10.0_aj5kj473hsgheg4miwvuwybosy
@@ -102,7 +102,7 @@ importers:
       leva: 0.9.34_biqbaboplfbrettd7655fr4n2y
       r3f-perf: 6.5.0_jiwpjt7canjevu42m56uwkinga
       sass: 1.56.1
-      typescript: 4.8.4
+      typescript: 4.9.3
       vite: 3.2.3_sass@1.56.1
       vite-plugin-glsl: 0.5.4_vite@3.2.3
 
@@ -111,7 +111,7 @@ importers:
       '@types/gsap': ^1.20.0
       gsap: 1.20.0
       three: 0.75.0
-      typescript: ^4.8.4
+      typescript: ^4.9.3
       vite: ^3.2.3
       vite-plugin-glsl: ^0.5.4
     dependencies:
@@ -119,51 +119,8 @@ importers:
       three: 0.75.0
     devDependencies:
       '@types/gsap': 1.20.2
-      typescript: 4.8.4
+      typescript: 4.9.3
       vite: 3.2.3
-      vite-plugin-glsl: 0.5.4_vite@3.2.3
-
-  apps/game-03-r3f:
-    specifiers:
-      '@react-three/cannon': ^6.5.0
-      '@react-three/drei': ^9.40.0
-      '@react-three/fiber': ^8.9.1
-      '@react-three/rapier': ^0.10.0
-      '@types/react': ^18.0.25
-      '@types/react-dom': ^18.0.8
-      '@types/three': ^0.146.0
-      '@vitejs/plugin-react': ^2.2.0
-      clsx: ^1.2.1
-      leva: ^0.9.34
-      r3f-perf: ^6.5.0
-      react: 18.2.0
-      react-dom: 18.2.0
-      sass: ^1.56.1
-      three: ^0.146.0
-      typescript: ^4.8.4
-      usehooks-ts: ^2.9.1
-      vite: ^3.2.3
-      vite-plugin-glsl: ^0.5.4
-    dependencies:
-      '@react-three/cannon': 6.5.0_v2ydulouxoshutbie5ymhabzf4
-      '@react-three/drei': 9.40.0_xwynmv5llzsuuouxruzymqw67e
-      '@react-three/fiber': 8.9.1_mjlgqb43i6mvslmnwgzrdumoh4
-      '@react-three/rapier': 0.10.0_aj5kj473hsgheg4miwvuwybosy
-      clsx: 1.2.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      three: 0.146.0
-      usehooks-ts: 2.9.1_biqbaboplfbrettd7655fr4n2y
-    devDependencies:
-      '@types/react': 18.0.25
-      '@types/react-dom': 18.0.8
-      '@types/three': 0.146.0
-      '@vitejs/plugin-react': 2.2.0_vite@3.2.3
-      leva: 0.9.34_biqbaboplfbrettd7655fr4n2y
-      r3f-perf: 6.5.0_jiwpjt7canjevu42m56uwkinga
-      sass: 1.56.1
-      typescript: 4.8.4
-      vite: 3.2.3_sass@1.56.1
       vite-plugin-glsl: 0.5.4_vite@3.2.3
 
   apps/shader-playground:
@@ -983,7 +940,7 @@ packages:
   /@react-spring/types/9.5.5:
     resolution: {integrity: sha512-7I/qY8H7Enwasxr4jU6WmtNK+RZ4Z/XvSlDvjXFVe7ii1x0MoSlkw6pD7xuac8qrHQRm9BTcbZNyeeKApYsvCg==}
 
-  /@react-three/cannon/6.5.0_v2ydulouxoshutbie5ymhabzf4:
+  /@react-three/cannon/6.5.0_ircyqdtfvs5e2esrmucohjf5fm:
     resolution: {integrity: sha512-C3ZC0bJwQAXQtvaNMURoVLISsbHfvASLhFmZSzseAfA6vEiza8RvcVsmByTPrKxF9udDpRmN9tQgtX6DA3deYg==}
     peerDependencies:
       '@react-three/fiber': '>=8'
@@ -993,7 +950,7 @@ packages:
       '@pmndrs/cannon-worker-api': 2.3.0_three@0.146.0
       '@react-three/fiber': 8.9.1_mjlgqb43i6mvslmnwgzrdumoh4
       cannon-es: 0.20.0
-      cannon-es-debugger: 1.0.0_7fgalhxcedxywkeid3ieehlaoq
+      cannon-es-debugger: 1.0.0_huukmlzjjxvhk5qlnc46tbaq2y
       react: 18.2.0
       three: 0.146.0
     transitivePeerDependencies:
@@ -1512,7 +1469,7 @@ packages:
     resolution: {integrity: sha512-zBUoFU0ZcxpvSt9IU66dXVT/3ctO1cy4y9cscs1szkPlcWb6pasYM144GqrUygUbT+k7cmUCW61cvskjcv0enQ==}
     dev: true
 
-  /cannon-es-debugger/1.0.0_7fgalhxcedxywkeid3ieehlaoq:
+  /cannon-es-debugger/1.0.0_huukmlzjjxvhk5qlnc46tbaq2y:
     resolution: {integrity: sha512-sE9lDOBAYFKlh+0w+cvWKwUhJef8HYnUSVPWPL0jD15MAuVRQKno4QYZSGxgOoJkMR3mQqxL4bxys2b3RSWH8g==}
     peerDependencies:
       cannon-es: 0.x
@@ -1524,7 +1481,7 @@ packages:
     dependencies:
       cannon-es: 0.20.0
       three: 0.146.0
-      typescript: 4.8.4
+      typescript: 4.9.3
     dev: false
 
   /cannon-es/0.20.0:
@@ -4512,6 +4469,12 @@ packages:
 
   /typescript/4.8.4:
     resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
+  /typescript/4.9.3:
+    resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
 
